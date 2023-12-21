@@ -1,2 +1,0 @@
-# smartFarming
-this is project
