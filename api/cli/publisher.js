@@ -1,5 +1,5 @@
 const mqtt = require('mqtt');
-const { DHT,  LED, PAN ,MANUALLY, DISTANCE, FLAME} = require('./topic');
+const { DHT,  LED, PAN ,MANUALLY, DISTANCE, FLAME, RGB,LIGHT} = require('./topic');
 
 require('dotenv').config()
 
@@ -27,6 +27,8 @@ const connect = async () => {
     // Sự kiện khi kết nối thành công
     client.on('connect', () => {
       console.log('Đã kết nối thành công đến MQTT Broker');
+
+      //nhận dữ liệu từ mqtt truyền qua file subscriber
       client.subscribe([DHT], () => {
         console.log(`Subscribe to topic ${DHT}`);
       });
@@ -45,9 +47,13 @@ const connect = async () => {
       client.subscribe([LED], () => {
         console.log(`Subscribe to topic ${LED}`);
       });
+      client.subscribe([RGB], () => {
+        console.log(`Subscribe to topic ${RGB}`);
+      });
+      client.subscribe([LIGHT], () => {
+        console.log(`Subscribe to topic ${LIGHT}`);
+      });
     });
-
-
     client.on('close', () => {
       console.log('Kết nối đã đóng');
     });
@@ -56,15 +62,9 @@ const connect = async () => {
   }
 };
 
-// const publishLCDStatus = async (topic,deviceId, type) => {
-//   const message = type; 
-//   client.publish(topic, message);
-
-//   console.log(`Đã publish trạng thái của PAN ${deviceId}: ${topic}`);
-// }
-
+//dùng để cập nhật status -> file deviceController
 const publishManuallyStatus = async (topic,deviceId, status) => {
-  const message = status ? '1' : '0'; 
+  const message = status ? 'ON' : 'OFF'; 
   client.publish(topic, message, { qos: 1, retain: true });
 
   console.log(`Đã publish trạng thái  ${deviceId}: ${topic}`);

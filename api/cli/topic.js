@@ -6,4 +6,6 @@ const PAN = "PAN";
 const MANUALLY = "MANUALLY";
 const FLAME = "FLAME";
 const DISTANCE = "DISTANCE";
-module.exports = {DHT,LED, PAN ,MANUALLY,FLAME,DISTANCE};
+const RGB = "RGB";
+const LIGHT = "Light"
+module.exports = {DHT,LED, PAN ,MANUALLY,FLAME,DISTANCE, RGB,LIGHT};
