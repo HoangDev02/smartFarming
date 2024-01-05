@@ -38,7 +38,6 @@ app.use(morgan('combined'))
 // app.use('/api/room', roomsRoutes)
 app.use('/api/devices', deviceRouter);
 
-
 server.listen(port, () => {
   subscriber();
   connect();
